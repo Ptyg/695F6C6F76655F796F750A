@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Floating Hearts</title>
+  <style>
+    :root { --vh: 1vh; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #ffb6c1; font-family: 'Courier New', monospace; }
+    
+    .text-container {
+      position: absolute;
+      top: calc(var(--vh) * 50);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+    
+    #romantic-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5em;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      line-height: 1.5;
+      min-height: 120px;
+      margin: 0;
+    }
+    
+    .button-container {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 3;
+      pointer-events: auto;
+    }
+    
+    .valentine-btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    #yesBtn { background: #ff4d6d; color: white; }
+    #noBtn { background: #f8f9fa; color: #212529; transition: transform 0.1s ease; }
+
+    .heart {
+      --size: 50px;
+      position: fixed;
+      width: var(--size);
+      height: var(--size);
+      background-color: red;
+      transform: rotate(-45deg);
+      bottom: -50px;
+      animation: floatUp linear forwards;
+      z-index: 1;
+    }
+    
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      background-color: red;
+      border-radius: 50%;
+    }
+    
+    .heart::before {
+      top: calc(-1 * var(--size) / 2);
+      left: 0;
+    }
+    
+    .heart::after {
+      left: calc(var(--size) / 2);
+      top: 0;
+    }
+    
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(-45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="text-container">
+    <p id="romantic-text"></p>
+  </div>
+  <div class="button-container" id="button-container"></div>
+
+  <script>
+    const acceptedKey = "valentine_accepted";
+    const allowedHash = "wifey";
+    const urlParams = new URLSearchParams(window.location.search);
+    const accessHash = urlParams.get("hash");
+
+    if (!accessHash || accessHash !== allowedHash) {
+      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    } else if (localStorage.getItem(acceptedKey) === "true") {
+      document.getElementById("romantic-text").innerHTML = "💖 You're back! I love you! 💖";
+    } else {
+      const romanticTexts = [  
+        "That first DM after your 'how old are you?' question...\nWho knew interrogations could feel so much like beginnings?",  
+        "Children of the Light → Your movie picks → 3AM reels...\n~your targeted offers should be classified as emotional warfare~",  
+        "Our 'test' period was supposed to be science.\nNot this...\nheartbeat equations solving for X = your laugh",  
+        "That secret kiss in plain sight -\nworld still spinning like nothing happened,\nwhile my DNA rearranged itself\ninto someone new.",  
+        "Watching you morph from 'just testing'\nto stealing my heart completely...\n~best system crash I've ever experienced~",  
+        "Our park bench conspiracy against the world -\nevery stolen touch rewriting\nwhat 'normal' means.",  
+        "So. First Valentine's with my\n*official unofficial*\npartner in crime...\nReady to break the system again?\n(Will you be mine?)"  
+      ];
+
+      const desperationPhrases = [
+        "Darling... you must have misclicked",
+        "Care to reconsider, little rebel?",
+        "This isn't a request. Try again.",
+        "I grow tired of this game...",
+        "Final warning: Choose wisely",
+        "I SAID CLICK YES"
+      ];
+
+      let currentIndex = 0;
+      let isTransitioning = false;
+      let noClickCount = 0;
+      const textDiv = document.getElementById('romantic-text');
+
+      function showText() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        textDiv.style.opacity = '0';
+        textDiv.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+          textDiv.innerHTML = romanticTexts[currentIndex].replace(/\n/g, '<br>');
+          if (currentIndex === 0) textDiv.innerHTML += '<br><br><span class="tap-hint">Tap anywhere to continue</span>';
+          const buttonContainer = document.getElementById('button-container');
+          buttonContainer.innerHTML = '';
+
+          if (currentIndex === romanticTexts.length - 1) {
+            document.removeEventListener('click', showText);
+
+            const yesBtn = document.createElement('button');
+            yesBtn.id = 'yesBtn';
+            yesBtn.className = 'valentine-btn';
+            yesBtn.textContent = 'YES';
+
+            const noBtn = document.createElement('button');
+            noBtn.id = 'noBtn';
+            noBtn.className = 'valentine-btn';
+            noBtn.textContent = 'NO';
+
+            yesBtn.onclick = (e) => {
+              e.stopPropagation();
+              localStorage.setItem(acceptedKey, "true");
+              buttonContainer.remove();
+              for (let i = 0; i < 1_000; i++) {
+                setTimeout(() => createHeart(), i * 50);
+              }
+              textDiv.innerHTML += "<br><br>~System Override Accepted. I love you~ 💞";
+            };
+
+            noBtn.onclick = () => {
+              if (noClickCount < desperationPhrases.length - 1) {
+                noBtn.style.transform = `scale(${1 - (noClickCount * 0.2)})`;
+                yesBtn.style.transform = `scale(${1 + (noClickCount * 0.15)})`;
+                yesBtn.style.filter = `brightness(${100 + (noClickCount * 20)}%)`;
+
+                textDiv.innerHTML = `
+                  ${romanticTexts[romanticTexts.length - 1].replace(/\n/g, '<br>')}
+                  <br><br><span style="font-size:0.8em">~${desperationPhrases[noClickCount]}~</span>
+                `;
+                noClickCount++;
+              } else {
+                buttonContainer.style.justifyContent = 'center';
+                noBtn.remove();
+                yesBtn.style.transform = 'scale(1.5)';
+                yesBtn.style.animation = 'pulse 1s infinite';
+                yesBtn.style.margin = '0 auto';
+                textDiv.innerHTML = `
+                  ${romanticTexts[romanticTexts.length - 1].replace(/\n/g, '<br>')}
+                  <br><br><span style="font-size:0.8em">~${desperationPhrases[noClickCount]}~ 🔥</span>
+                `;
+              }
+            };
+
+            buttonContainer.appendChild(yesBtn);
+            buttonContainer.appendChild(noBtn);
+          } else {
+            currentIndex++;
+          }
+
+          textDiv.style.opacity = '1';
+          textDiv.style.transform = 'translateY(0)';
+          isTransitioning = false;
+        }, 800);
+      }
+
+      document.addEventListener('click', showText);
+      showText();
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      const size = Math.random() * 30 + 20;
+      heart.style.setProperty('--size', size + 'px');
+      heart.style.left = Math.random() * (window.innerWidth - size) + 'px';
+      heart.style.animationDuration = Math.random() * 4 + 3 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), parseFloat(heart.style.animationDuration) * 1000);
+    }
+    
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
