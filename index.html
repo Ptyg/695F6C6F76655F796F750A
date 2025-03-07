@@ -1,238 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Floating Hearts</title>
-  <style>
-    :root { --vh: 1vh; }
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { 
-      margin: 0; 
-      height: 100%; 
-      overflow: hidden; 
-      background: #ffb6c1; 
-      font-family: 'Poppins', sans-serif; 
-    }
-
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-    
-    .text-container {
-      position: absolute;
-      top: calc(var(--vh) * 50);
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 600px;
-      padding: 20px;
-      text-align: center;
-      pointer-events: none;
-      z-index: 2;
-    }
-    
-    #romantic-text {
-      font-family: 'Poppins', sans-serif; 
-      font-size: 1.5em;
-      color: #fff;
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      line-height: 1.5;
-      min-height: 120px;
-      margin: 0;
-    }
-    
-    .button-container {
-      position: absolute;
-      bottom: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      z-index: 3;
-      pointer-events: auto;
-    }
-    
-    .valentine-btn {
-      padding: 12px 30px;
-      border: none;
-      border-radius: 25px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: white;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    #yesBtn { background: #ff4d6d; color: white; }
-    #noBtn { background: #f8f9fa; color: #212529; transition: transform 0.1s ease; }
-
-    .heart {
-      --size: 50px;
-      position: fixed;
-      width: var(--size);
-      height: var(--size);
-      background-color: red;
-      transform: rotate(-45deg);
-      bottom: -50px;
-      animation: floatUp linear forwards;
-      z-index: 1;
-    }
-    
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: var(--size);
-      height: var(--size);
-      background-color: red;
-      border-radius: 50%;
-    }
-    
-    .heart::before {
-      top: calc(-1 * var(--size) / 2);
-      left: 0;
-    }
-    
-    .heart::after {
-      left: calc(var(--size) / 2);
-      top: 0;
-    }
-    
-    @keyframes floatUp {
-      0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
-      100% { transform: translateY(-110vh) rotate(-45deg); opacity: 0; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="text-container">
-    <p id="romantic-text"></p>
+<body class="bg-gray-900 h-screen flex items-center justify-center p-4">
+  <div class="max-w-md w-full space-y-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+        Portal
+      </h1>
+      <p class="mt-2 text-gray-400">Select the option~</p>
+    </div>
+
+    <div class="space-y-8">
+      <a href="./pages/8/8.html" class="group relative block rounded-xl border border-gray-700 bg-gray-800 p-8 shadow-lg transition-all hover:border-pink-500 hover:shadow-pink-500/10 hover:transform hover:-translate-y-1 active:scale-95">
+        <div class="absolute right-4 top-4 opacity-20 group-hover:opacity-40 transition-opacity">
+          <svg class="w-16 h-16 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div class="space-y-2">
+          <h3 class="text-2xl font-bold text-pink-400">March 8th</h3>
+          <p class="text-gray-400">International Women's Day Celebration</p>
+        </div>
+      </a>
+
+      <!-- Disabled link -->
+      <div class="relative opacity-50 cursor-not-allowed" aria-disabled="true">
+        <span class="absolute top-2 right-2 bg-gray-700 text-gray-400 text-xs px-2 py-1 rounded-full z-10">
+          Under construction
+        </span>
+        <div class="group relative block rounded-xl border border-gray-600 bg-gray-800 p-8 shadow-lg pointer-events-none">
+          <div class="absolute right-4 top-4 opacity-20">
+            <svg class="w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27z"/>
+            </svg>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-2xl font-bold text-gray-500">February 14th</h3>
+            <p class="text-gray-600">Valentine's Day Celebration</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="button-container" id="button-container"></div>
-
-  <script>
-    const acceptedKey = "valentine_accepted";
-    const allowedHash = "wifey";
-    const urlParams = new URLSearchParams(window.location.search);
-    const accessHash = urlParams.get("hash");
-
-    if (!accessHash || accessHash !== allowedHash) {
-      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    } else if (localStorage.getItem(acceptedKey) === "true") {
-      document.getElementById("romantic-text").innerHTML = "💖 You're back! I love you! 💖";
-    } else {
-      const romanticTexts = [  
-        "That first DM after your 'how old are you?' question...\nWho knew interrogations could feel so much like beginnings?",  
-        "Children of the Light → Your movie picks → 3AM reels...\n~your targeted offers should be classified as emotional warfare~",  
-        "Our 'test' period was supposed to be science.\nNot this...\nheartbeat equations solving for X = your laugh",  
-        "That secret kiss in plain sight -\nworld still spinning like nothing happened,\nwhile my DNA rearranged itself\ninto someone new.",  
-        "Watching you morph from 'just testing'\nto stealing my heart completely...\n~best system crash I've ever experienced~",  
-        "Our park bench conspiracy against the world -\nevery stolen touch rewriting\nwhat 'normal' means.",  
-        "So. First Valentine's with my\n*official unofficial*\npartner in crime...\nReady to break the system again?\n(Will you be mine?)"  
-      ];
-
-      const desperationPhrases = [
-        "Darling... you must have misclicked",
-        "Care to reconsider, little rebel?",
-        "This isn't a request. Try again.",
-        "I grow tired of this game...",
-        "Final warning: Choose wisely",
-        "I SAID CLICK YES"
-      ];
-
-      let currentIndex = 0;
-      let isTransitioning = false;
-      let noClickCount = 0;
-      const textDiv = document.getElementById('romantic-text');
-
-      function showText() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        textDiv.style.opacity = '0';
-        textDiv.style.transform = 'translateY(20px)';
-
-        setTimeout(() => {
-          textDiv.innerHTML = romanticTexts[currentIndex].replace(/\n/g, '<br>');
-          if (currentIndex === 0) textDiv.innerHTML += '<br><br><span class="tap-hint">Tap anywhere to continue</span>';
-          const buttonContainer = document.getElementById('button-container');
-          buttonContainer.innerHTML = '';
-
-          if (currentIndex === romanticTexts.length - 1) {
-            document.removeEventListener('click', showText);
-
-            const yesBtn = document.createElement('button');
-            yesBtn.id = 'yesBtn';
-            yesBtn.className = 'valentine-btn';
-            yesBtn.textContent = 'YES';
-
-            const noBtn = document.createElement('button');
-            noBtn.id = 'noBtn';
-            noBtn.className = 'valentine-btn';
-            noBtn.textContent = 'NO';
-
-            yesBtn.onclick = (e) => {
-              e.stopPropagation();
-              localStorage.setItem(acceptedKey, "true");
-              buttonContainer.remove();
-              for (let i = 0; i < 1_000; i++) {
-                setTimeout(() => createHeart(), i * 50);
-              }
-              textDiv.innerHTML += "<br><br>~System Override Accepted. I love you~ 💞";
-            };
-
-            noBtn.onclick = () => {
-              if (noClickCount < desperationPhrases.length - 1) {
-                noBtn.style.transform = `scale(${1 - (noClickCount * 0.2)})`;
-                yesBtn.style.transform = `scale(${1 + (noClickCount * 0.15)})`;
-                yesBtn.style.filter = `brightness(${100 + (noClickCount * 20)}%)`;
-
-                textDiv.innerHTML = `
-                  ${romanticTexts[romanticTexts.length - 1].replace(/\n/g, '<br>')}
-                  <br><br><span style="font-size:0.8em">~${desperationPhrases[noClickCount]}~</span>
-                `;
-                noClickCount++;
-              } else {
-                buttonContainer.style.justifyContent = 'center';
-                noBtn.remove();
-                yesBtn.style.transform = 'scale(1.5)';
-                yesBtn.style.animation = 'pulse 1s infinite';
-                yesBtn.style.margin = '0 auto';
-                textDiv.innerHTML = `
-                  ${romanticTexts[romanticTexts.length - 1].replace(/\n/g, '<br>')}
-                  <br><br><span style="font-size:0.8em">~${desperationPhrases[noClickCount]}~ 🔥</span>
-                `;
-              }
-            };
-
-            buttonContainer.appendChild(yesBtn);
-            buttonContainer.appendChild(noBtn);
-          } else {
-            currentIndex++;
-          }
-
-          textDiv.style.opacity = '1';
-          textDiv.style.transform = 'translateY(0)';
-          isTransitioning = false;
-        }, 800);
-      }
-
-      document.addEventListener('click', showText);
-      showText();
-    }
-
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      const size = Math.random() * 30 + 20;
-      heart.style.setProperty('--size', size + 'px');
-      heart.style.left = Math.random() * (window.innerWidth - size) + 'px';
-      heart.style.animationDuration = Math.random() * 4 + 3 + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), parseFloat(heart.style.animationDuration) * 1000);
-    }
-    
-    setInterval(createHeart, 500);
-  </script>
 </body>
 </html>

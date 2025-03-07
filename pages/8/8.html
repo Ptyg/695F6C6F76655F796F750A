@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love OS</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../modules/typewriter/typewriter.js"></script>
+  <script src="../../modules/heart/heart.js"></script>
+  
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="../../modules/typewriter/typewriter.css">
+  <link rel="stylesheet" href="../../modules/heart/heart.css">
+</head>
+<body class="bg-gray-900 h-screen flex items-center justify-center p-4 transition-all duration-700">
+  <div class="terminal-container bg-black p-6 rounded-lg shadow-xl border-2 border-green-500 w-[640px] h-[700px] overflow-y-auto scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-900">
+    <div id="osBoot" class="opacity-50 transition-opacity duration-1000">
+      <div class="font-mono text-green-400 text-sm space-y-1 text-center mb-4">
+        ❤ LOVE OS v1.0.0 ❤
+      </div>
+    </div>
+    <div id="codeDisplay" class="font-mono text-green-400 mt-4 whitespace-pre-wrap"></div>
+  </div>
+
+  <script>
+    const codeLines = [
+      { text: '[  OK  ] Mounted /sys/kernel/love', color: '#00ff00', delay: 500 },
+      { text: '[  OK  ] Started Load Affection Modules', color: '#00ff00', delay: 800 },
+      { text: '[  OK  ] Reached target Romantic Gestures', color: '#00ff00', delay: 700 },
+      { text: '[ .... ] Starting Heartbeat Synchronization...', color: '#ffff00', delay: 1000 },
+      { text: '[  OK  ] Heartbeat Synchronization Complete', color: '#00ff00', delay: 900 },
+      { text: '[ .... ] Loading Romantic Memory Database...', color: '#ffff00', delay: 1200 },
+      { text: '[  OK  ] Loaded Romantic Memory Database', color: '#00ff00', delay: 800 },
+      { text: '[WARNING] Excessive Cuteness Detected!', color: '#ff0000', delay: 1000 },
+      { text: '[ .... ] Compiling Romantic Gestures...', color: '#ffff00', delay: 1500 },
+      { text: '[  OK  ] Compiled Romantic Gestures', color: '#00ff00', delay: 900 },
+      { text: '[ .... ] Initializing Love Letter Generator...', color: '#ffff00', delay: 700 },
+      { text: '[  OK  ] Initialized Love Letter Generator', color: '#00ff00', delay: 1100 },
+      { text: '[ .... ] Pairing Soulmate Connection...', color: '#ffff00', delay: 1300 },
+      { text: '[  OK  ] Paired Soulmate Connection', color: '#00ff00', delay: 1000 },
+      { text: '[ .... ] Activating Infinite Love Loop...', color: '#ffff00', delay: 1200 },
+      { text: '[  OK  ] Activated Infinite Love Loop', color: '#00ff00', delay: 800 },
+      { text: '[  OK  ] Reached target LOVE OS Boot', color: '#00ff00', delay: 500 },
+      { text: 'All systems loving! ❤', color: '#ff00ff', delay: 1000 },
+    ];
+
+    const romanticText = [
+      { text: '[  OK  ] Initializing 8th March Celebration...', color: '#ec4899', delay: 500 },
+      { text: '[  OK  ] Loaded Memories of Us', color: '#db2777', delay: 800 },
+      { text: '[ .... ] Compiling Reasons Why I Love You...', color: '#be185d', delay: 1000 },
+      { text: '[  OK  ] Compiled 1000+ Reasons', color: '#9d174d', delay: 900 },
+      { text: '[ .... ] Generating Love Letter...', color: '#be185d', delay: 1200 },
+      { text: '[  OK  ] Love Letter Ready', color: '#9d174d', delay: 800 },
+      { text: '[ .... ] Sending Virtual Hugs and Kisses...', color: '#be185d', delay: 1000 },
+      { text: '[  OK  ] Hugs and Kisses Delivered', color: '#9d174d', delay: 700 },
+      { text: '[  OK  ] Reached target 8th March Celebration', color: '#ec4899', delay: 500 },
+      { text: 'To the most amazing person in my life,', color: '#ec4899', delay: 1000 },
+      { text: 'You make every day brighter and more beautiful.', color: '#db2777', delay: 1000 },
+      { text: 'Your smile is my favorite sight,', color: '#be185d', delay: 1000 },
+      { text: 'And your love is my greatest joy.', color: '#9d174d', delay: 1000 },
+      { text: 'Thank you for trusting me with your heart,', color: '#ec4899', delay: 1000 },
+      { text: 'For always being my safe place,', color: '#db2777', delay: 1000 },
+      { text: 'And for believing in us, no matter what.', color: '#be185d', delay: 1000 },
+      { text: 'Your strength inspires me every day,', color: '#9d174d', delay: 1000 },
+      { text: 'And your kindness makes the world better.', color: '#ec4899', delay: 1000 },
+      { text: 'I am so grateful for your love,', color: '#db2777', delay: 1000 },
+      { text: 'For your patience, your laughter,', color: '#be185d', delay: 1000 },
+      { text: 'And for being my partner in everything.', color: '#9d174d', delay: 1000 },
+      { text: 'Happy 8th March, my love! ❤️', color: '#831843', delay: 1000 },
+    ];
+
+    let heartService;
+    let currentPrompt = null;
+    const MAX_HEARTS = 30;
+    const WARNING_THRESHOLD = MAX_HEARTS * 0.8; // 24 hearts
+
+    function createControls() {
+      const controls = document.createElement('div');
+      controls.className = 'heart-controls flex flex-col items-center gap-2';
+
+      const inputGroup = document.createElement('div');
+      inputGroup.className = 'heart-input-group flex items-center gap-2 relative';
+
+      const heartInput = document.createElement('input');
+      heartInput.className = 'heart-input bg-gray-800 text-green-400 px-2 py-1 rounded border border-green-500 w-32 transition-colors';
+      heartInput.type = 'number';
+      heartInput.min = 1;
+      heartInput.max = MAX_HEARTS;
+      heartInput.value = 5;
+
+      const maxWarning = document.createElement('div');
+      maxWarning.className = 'flex items-center gap-1 text-sm text-green-400';
+      
+      const checkIcon = document.createElement('span');
+      checkIcon.innerHTML = '✓';
+      checkIcon.className = 'text-green-500 hidden';
+
+      const maxText = document.createElement('span');
+      maxText.textContent = `Max ${MAX_HEARTS}`;
+
+      maxWarning.appendChild(maxText);
+      maxWarning.appendChild(checkIcon);
+
+      heartInput.addEventListener('input', () => {
+        let value = Math.max(1, Math.min(MAX_HEARTS, parseInt(heartInput.value) || 1));
+        heartInput.value = value;
+        
+        checkIcon.classList.toggle('hidden', value !== MAX_HEARTS);
+        heartInput.classList.toggle('input-warning', value > WARNING_THRESHOLD);
+        
+        if(heartService) {
+          heartService.setHeartNumber(value);
+        }
+      });
+
+      inputGroup.appendChild(heartInput);
+      inputGroup.appendChild(maxWarning);
+      controls.appendChild(inputGroup);
+
+      // Toggle switch component
+      const endlessContainer = document.createElement('div');
+      endlessContainer.className = 'toggle-container flex items-center gap-2 mt-4';
+      
+      const endlessLabel = document.createElement('span');
+      endlessLabel.className = 'toggle-label text-green-400';
+      endlessLabel.textContent = 'Endless Mode:';
+      
+      const toggleWrapper = document.createElement('label');
+      toggleWrapper.className = 'toggle-switch relative inline-block w-9 h-5';
+      toggleWrapper.innerHTML = `
+        <input type="checkbox" class="sr-only peer">
+        <span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-700 rounded-full transition-all before:content-[''] before:absolute before:left-1 before:bottom-1 before:h-3 before:w-3 before:rounded-full before:bg-green-500 before:transition-all peer-checked:before:translate-x-4"></span>
+      `;
+      
+      toggleWrapper.querySelector('input').onchange = (e) => {
+        if(e.target.checked) {
+          heartService.startEndlessSpawning(100);
+        } else {
+          heartService.stopEndlessSpawning();
+        }
+      };
+
+      endlessContainer.appendChild(endlessLabel);
+      endlessContainer.appendChild(toggleWrapper);
+      controls.appendChild(endlessContainer);
+      
+      document.body.appendChild(controls);
+    }
+
+    function createPrompt(text) {
+      currentPrompt?.remove();
+      currentPrompt = Object.assign(document.createElement('div'), {
+        textContent: text,
+        className: 'font-mono text-pink-600 animate-pulse mt-4 text-center'
+      });
+      document.getElementById('codeDisplay').appendChild(currentPrompt);
+    }
+
+    function showFirstInteraction() {
+      createPrompt('Wanna see a heart? Tap anywhere!');
+      document.body.addEventListener('click', () => {
+        currentPrompt?.remove();
+        setTimeout(showSecondInteraction, 2000);
+      }, { once: true });
+    }
+
+    function showSecondInteraction() {
+      createPrompt('You know, I love when it\'s more hearts ❤️');
+      createControls();
+    }
+
+    function transitionTo8thMarchTheme() {
+      document.getElementById('codeDisplay').innerHTML = '';
+      
+      // Smooth transition handling
+      document.body.classList.replace('bg-gray-900', 'bg-pink-50');
+      const terminal = document.querySelector('.terminal-container');
+      terminal.classList.replace('bg-black', 'bg-pink-100');
+      terminal.classList.replace('border-green-500', 'border-pink-400');
+      
+      document.querySelectorAll('.font-mono').forEach(el => {
+        el.classList.replace('text-green-400', 'text-pink-700');
+      });
+
+      heartService = new HeartService();
+      new Typewriter('codeDisplay', romanticText, {
+        speed: 30,
+        onComplete: () => setTimeout(showFirstInteraction, 500)
+      }).init();
+    }
+
+    // Initial boot sequence
+    new Typewriter('codeDisplay', codeLines, {
+      speed: 30,
+      onComplete: () => {
+        const prompt = document.createElement('div');
+        prompt.textContent = 'System is ready. Click anywhere to continue...';
+        prompt.className = 'font-mono text-green-400 animate-pulse mt-4 text-center';
+        document.getElementById('codeDisplay').appendChild(prompt);
+        document.body.addEventListener('click', transitionTo8thMarchTheme, { once: true });
+      },
+      cursorChar: '_'
+    }).init();
+  </script>
+</body>
+</html>
