@@ -3,6 +3,7 @@ import { Stats } from '../stats/stats.js';
 export class KeyDates {
   constructor() {
     this.dates = {
+      loveConfession: new Date('2024-11-25T00:54'),
       firstKiss: new Date('2024-12-28T09:29'),
       officialDating: new Date('2025-01-23T00:46'),
       married: new Date('2025-03-16T13:38'),
