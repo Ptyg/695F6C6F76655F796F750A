@@ -1,0 +1,1 @@
+import{n as o}from"./chunk-BAXFHI7N-Dpmsv6QR.js";import{c as e}from"./style-merge-CBOMxjOo.js";const d=r=>o.jsx("div",{className:e("rounded-xl border border-gray-700 bg-gray-800 p-4 shadow-lg","hover:border-pink-500 hover:shadow-pink-500/10","hover:transform",r.className),children:r.children});export{d as C};
