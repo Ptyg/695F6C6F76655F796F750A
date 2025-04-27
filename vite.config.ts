@@ -5,4 +5,5 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  base: '/695F6C6F76655F796F750A'
 });
