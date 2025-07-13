@@ -18,15 +18,8 @@ jobs:
       - run: npm ci
       - run: npm run build -- --configuration=production --base-href="/695F6C6F76655F796F750A/"
 
-      - name: List contents of dist directory
-        run: |
-          ls -F dist/
-          ls -F dist/695F6C6F76655F796F750A/
-          ls -F dist/695F6C6F76655F796F750A/browser/
-          pwd
-          ls -F
-
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/695F6C6F76655F796F750A/
+          publish_dir: ./dist/695F6C6F76655F796F750A/browser
+          destination_dir: 695F6C6F76655F796F750A
