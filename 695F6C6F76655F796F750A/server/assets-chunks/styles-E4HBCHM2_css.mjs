@@ -1,2 +1,0 @@
-export default `:root{--base-bg: #f6f5f2;--surface: #f0ebe3;--accent: #f3d0d7;--highlight: #ffefef;--text-primary: #1a1a1a;--text-muted: #5a5a5a;--nav-gradient-start: #f3d0d7;--nav-gradient-end: #ffefef}
-`;
