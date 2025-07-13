@@ -1,0 +1,31 @@
+.navbar {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(
+    90deg,
+    var(--nav-gradient-start),
+    var(--nav-gradient-end)
+  );
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition:
+    background 0.3s,
+    color 0.3s;
+  color: var(--text-primary);
+}
+
+.navbar a:hover {
+  background: var(--highlight);
+}
+
+.active-link {
+  background: var(--accent);
+  color: var(--text-primary);
+}

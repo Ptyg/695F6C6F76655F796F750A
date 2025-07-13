@@ -1,0 +1,7 @@
+<div class="flex-grow w-full page">
+  @if (!started()) {
+  <app-initial-screen (startJourney)="showMainContent()"></app-initial-screen>
+  } @else {
+  <app-main-content></app-main-content>
+  }
+</div>

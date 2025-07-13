@@ -1,0 +1,49 @@
+<div class="flex items-start justify-center relative">
+  <div class="love-letter grid gap-6">
+    <h1
+      class="text-4xl font-bold text-center"
+      style="font-family: &quot;Dancing Script&quot;, cursive; color: #ff6b6b"
+    >
+      Happy 1st Anniversary, My Love! 💝
+    </h1>
+
+    <p class="text-gray-700 leading-relaxed">
+      My dearest <span class="font-bold text-pink-600">[Her Name]</span>,
+    </p>
+    <app-typing-text [text]="message"></app-typing-text>
+
+    <app-timeline [title]="'Our Story'" [events]="story"></app-timeline>
+
+    <h2 class="text-2xl font-bold text-center" style="color: #ff6b6b">
+      Click Our Memories
+    </h2>
+    <div class="grid grid-cols-2 gap-4">
+      <app-memory-card palette="pink-purple">
+        <span front class="text-4xl">📸</span>
+        <p back class="text-center text-sm">Our first photo together</p>
+      </app-memory-card>
+
+      <app-memory-card palette="blue-green">
+        <span front class="text-4xl">🌊</span>
+        <p back class="text-center text-sm">Beach day memories</p>
+      </app-memory-card>
+
+      <app-memory-card palette="yellow-orange">
+        <span front class="text-4xl">🎂</span>
+        <p back class="text-center text-sm">Birthday surprises</p>
+      </app-memory-card>
+
+      <app-memory-card palette="purple-red">
+        <span front class="text-4xl">💑</span>
+        <p back class="text-center text-sm">Every moment with you</p>
+      </app-memory-card>
+    </div>
+
+    <app-promise-button
+      title="Click for My Promise 💝"
+      text="I promise to love you more each day, to be your rock when you need
+                strength, your sunshine when you need warmth, and your home when you
+                need peace. Here's to forever with you. ❤️"
+    ></app-promise-button>
+  </div>
+</div>
